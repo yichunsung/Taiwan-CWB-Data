@@ -62,9 +62,9 @@ for (i in 1:108){
 
 }
 names(C0D560_Rain_for_day_hr24)[2:109] <- as.vector(as.factor(date))
+C0D560_Rain_for_day_hr24_all <- melt(C0D560_Rain_for_day_hr24, id=c("Hour") ) # 把他們排成一排
 
-
-write.csv(C0D560_Rain_for_day_hr24, file="c://Taiwan-CWB-Data/writeCSV/C0D560_竹東_rain_data_20161001to20170116.csv")
+write.csv(C0D560_Rain_for_day_hr24_all, file="c://Taiwan-CWB-Data/writeCSV/C0D560_竹東_rain_data_20161001to20170116.csv")
 
 
 # 2 濕度
@@ -83,8 +83,9 @@ for (i in 1:108){
 
 }
 names(C0D560_HUM_for_day_hr24)[2:109] <- as.vector(as.factor(date))
+C0D560_HUM_for_day_hr24_all <- melt(C0D560_HUM_for_day_hr24, id=c("Hour") ) # 把他們排成一排
 
-write.csv(C0D560_HUM_for_day_hr24, file="c://Taiwan-CWB-Data/writeCSV/C0D560_竹東_hum_data_20161001to20170116.csv")
+write.csv(C0D560_HUM_for_day_hr24_all, file="c://Taiwan-CWB-Data/writeCSV/C0D560_竹東_hum_data_20161001to20170116.csv")
 
 # 3 氣溫
 
@@ -102,8 +103,9 @@ for (i in 1:108){
 
 }
 names(C0D560_tem_for_day_hr24)[2:109] <- as.vector(as.factor(date))
+C0D560_tem_for_day_hr24_all <- melt(C0D560_tem_for_day_hr24, id=c("Hour") ) # 把他們排成一排
 
-write.csv(C0D560_tem_for_day_hr24, file="c://Taiwan-CWB-Data/writeCSV/C0D560_竹東_tem_data_20161001to20170116.csv")
+write.csv(C0D560_tem_for_day_hr24_all, file="c://Taiwan-CWB-Data/writeCSV/C0D560_竹東_tem_data_20161001to20170116.csv")
 
 # 4 氣壓
 
@@ -121,8 +123,9 @@ for (i in 1:108){
 
 }
 names(C0D560_press_for_day_hr24)[2:109] <- as.vector(as.factor(date))
+C0D560_press_for_day_hr24_all <- melt(C0D560_press_for_day_hr24, id=c("Hour") ) # 把他們排成一排
 
-write.csv(C0D560_press_for_day_hr24, file="c://Taiwan-CWB-Data/writeCSV/C0D560_竹東_press_data_20161001to20170116.csv")
+write.csv(C0D560_press_for_day_hr24_all, file="c://Taiwan-CWB-Data/writeCSV/C0D560_竹東_press_data_20161001to20170116.csv")
 
 
 # ======虎頭埤
@@ -141,8 +144,9 @@ for (i in 1:108){
 
 }
 names(C0O970_Rain_for_day_hr24)[2:109] <- as.vector(as.factor(date))
+C0O970_Rain_for_day_hr24_all <- melt(C0O970_Rain_for_day_hr24, id=c("Hour") ) # 把他們排成一排
 
-write.csv(C0O970_Rain_for_day_hr24, file="c://Taiwan-CWB-Data/writeCSV/C0D560_虎頭埤_rain_data_20161001to20170116.csv")
+write.csv(C0O970_Rain_for_day_hr24_all, file="c://Taiwan-CWB-Data/writeCSV/C0D560_虎頭埤_rain_data_20161001to20170116.csv")
 
 
 # 2 濕度
@@ -161,8 +165,9 @@ for (i in 1:108){
 
 }
 names(C0O970_HUM_for_day_hr24)[2:109] <- as.vector(as.factor(date))
+C0O970_HUM_for_day_hr24_all <- melt(C0O970_HUM_for_day_hr24, id=c("Hour") ) # 把他們排成一排
 
-write.csv(C0O970_HUM_for_day_hr24, file="c://Taiwan-CWB-Data/writeCSV/C0D560_虎頭埤_hum_data_20161001to20170116.csv")
+write.csv(C0O970_HUM_for_day_hr24_all, file="c://Taiwan-CWB-Data/writeCSV/C0D560_虎頭埤_hum_data_20161001to20170116.csv")
 
 # 3 氣溫
 
@@ -180,8 +185,9 @@ for (i in 1:108){
 
 }
 names(C0O970_tem_for_day_hr24)[2:109] <- as.vector(as.factor(date))
+C0O970_tem_for_day_hr24_all <- melt(C0O970_tem_for_day_hr24, id=c("Hour") ) # 把他們排成一排
 
-write.csv(C0O970_tem_for_day_hr24, file="c://Taiwan-CWB-Data/writeCSV/C0D560_虎頭埤_tem_data_20161001to20170116.csv")
+write.csv(C0O970_tem_for_day_hr24_all, file="c://Taiwan-CWB-Data/writeCSV/C0D560_虎頭埤_tem_data_20161001to20170116.csv")
 
 # 4 氣壓
 
@@ -199,8 +205,9 @@ for (i in 1:108){
 
 }
 names(C0O970_press_for_day_hr24)[2:109] <- as.vector(as.factor(date))
+C0O970_press_for_day_hr24_all <- melt(C0O970_press_for_day_hr24, id=c("Hour") ) # 把他們排成一排
 
-write.csv(C0O970_press_for_day_hr24, file="c://Taiwan-CWB-Data/writeCSV/C0D560_虎頭埤_press_data_20161001to20170116.csv")
+write.csv(C0O970_press_for_day_hr24_all, file="c://Taiwan-CWB-Data/writeCSV/C0D560_虎頭埤_press_data_20161001to20170116.csv")
 
 
 # ======礁溪
@@ -219,8 +226,9 @@ for (i in 1:108){
 
 }
 names(C0U600_Rain_for_day_hr24)[2:109] <- as.vector(as.factor(date))
+C0U600_Rain_for_day_hr24_all <- melt(C0U600_Rain_for_day_hr24, id=c("Hour") ) # 把他們排成一排
 
-write.csv(C0U600_Rain_for_day_hr24, file="c://Taiwan-CWB-Data/writeCSV/C0D560_礁溪_rain_data_20161001to20170116.csv")
+write.csv(C0U600_Rain_for_day_hr24_all, file="c://Taiwan-CWB-Data/writeCSV/C0D560_礁溪_rain_data_20161001to20170116.csv")
 
 
 # 2 濕度
@@ -239,8 +247,9 @@ for (i in 1:108){
 
 }
 names(C0U600_HUM_for_day_hr24)[2:109] <- as.vector(as.factor(date))
+C0U600_HUM_for_day_hr24_all <- melt(C0U600_HUM_for_day_hr24, id=c("Hour") ) # 把他們排成一排
 
-write.csv(C0U600_HUM_for_day_hr24, file="c://Taiwan-CWB-Data/writeCSV/C0D560_礁溪_hum_data_20161001to20170116.csv")
+write.csv(C0U600_HUM_for_day_hr24_all, file="c://Taiwan-CWB-Data/writeCSV/C0D560_礁溪_hum_data_20161001to20170116.csv")
 
 # 3 氣溫
 
@@ -258,8 +267,9 @@ for (i in 1:108){
 
 }
 names(C0U600_tem_for_day_hr24)[2:109] <- as.vector(as.factor(date))
+C0U600_tem_for_day_hr24_all <- melt(C0U600_tem_for_day_hr24, id=c("Hour") ) # 把他們排成一排
 
-write.csv(C0U600_tem_for_day_hr24, file="c://Taiwan-CWB-Data/writeCSV/C0D560_礁溪_tem_data_20161001to20170116.csv")
+write.csv(C0U600_tem_for_day_hr24_all, file="c://Taiwan-CWB-Data/writeCSV/C0D560_礁溪_tem_data_20161001to20170116.csv")
 
 # 4 氣壓
 
@@ -277,8 +287,9 @@ for (i in 1:108){
 
 }
 names(C0U600_press_for_day_hr24)[2:109] <- as.vector(as.factor(date))
+C0U600_press_for_day_hr24_all <- melt(C0U600_press_for_day_hr24, id=c("Hour") ) # 把他們排成一排
 
-write.csv(C0U600_press_for_day_hr24, file="c://Taiwan-CWB-Data/writeCSV/C0D560_礁溪_press_data_20161001to20170116.csv")
+write.csv(C0U600_press_for_day_hr24_all, file="c://Taiwan-CWB-Data/writeCSV/C0D560_礁溪_press_data_20161001to20170116.csv")
 
 
 
