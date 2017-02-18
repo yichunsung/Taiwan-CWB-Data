@@ -1,0 +1,11 @@
+name: TaiwanCWB
+title:
+account: yichunsung
+server: shinyapps.io
+appId: 157661
+bundleId: 715987
+url: https://yichunsung.shinyapps.io/TaiwanCWB/
+when: 1487408645.55357
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: data/mvtime.csv
