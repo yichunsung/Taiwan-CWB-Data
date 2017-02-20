@@ -6,7 +6,7 @@ library(stringr)
 library(reshape2)
 library(knitr)
 
-#setwd('c:/Taiwan-CWB-Data')
+setwd('c:/Taiwan-CWB-Data')
 Sys.setlocale(category = "LC_ALL", locale = "")
 
 
@@ -18,6 +18,24 @@ date <- seq.Date(fromdate, todate, "day")
 lengthDate <- as.numeric(length(date))
 lengthDatep <- as.numeric(lengthDate+1)
 
+
+# ----------Read CSV---------- #
+
+stationList <- read.csv("data/StationList.csv")
+
+url_1 <- "http://e-service.cwb.gov.tw/HistoryDataQuery/DayDataController.do?command=viewMain&station="
+
+url_2 <- "&stname=%25E7%25AB%25B9%25E6%259D%25B1&datepicker="
+
+url_1_1 <- paste(url_1, stationList$id, sep = "")
+url_all <- paste(url_1_1, url_2, sep = "")
+
+stationListnew <- cbind(stationList, url_all)
+
+inputStationName <- c("新竹")
+
+substation <- data.frame(subset(stationListnew, stationListnew$stationname == inputStationName))
+subdataframe <-data.frame(date=date, urldate = paste(substation$url_all, date ,sep=""))
 
 # ----------三大測站的URL輸入---------- #
 
