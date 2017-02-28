@@ -12,15 +12,15 @@ Sys.setlocale(category = "LC_ALL", locale = "")
 getDataformCWB <- function(station, timerange1, timerange2, iterm){
 
 
-  # ---------- 輸入目標測站 ---------- #
+  # ---------- input Targat Station ---------- #
   # Load Station List
   
-  stationList <- read.csv("data/StationList.csv")
+  stationList <- read.csv("data/new_Station_List.csv")
   
-  inputStationName <- c(station) # "鞍部"
+  inputStationName <- c(station) # "Location"
   
   
-  # ---------- 輸入日期範圍 ---------- #
+  # ---------- input Date ---------- #
   
   fromdate <- as.Date(timerange1) # "2017-01-06"
   todate <- as.Date(timerange2) # "2017-01-06"
@@ -38,25 +38,25 @@ getDataformCWB <- function(station, timerange1, timerange2, iterm){
   
   stationListnew <- cbind(stationList, url_all)
   
-  substation <- data.frame(subset(stationListnew, stationListnew$stationname == inputStationName))
+  substation <- data.frame(subset(stationListnew, stationListnew$engName == inputStationName))
   subdataframe <-data.frame(date=date, urldate = paste(substation$url_all, date ,sep=""))
   
   # ---------- Xpath ---------- #
-  inputxpathName <- c(iterm) # "氣壓"
+  inputxpathName <- c(iterm) # "ex: press"
   
-  # 雨量
+  # Rain
   xpathrain <- "//table[@id='MyTable']/tbody/tr/td[11]" # Xpath for rain data
   
-  # 濕度
+  # Hum
   xpathHum <- "//table[@id='MyTable']/tbody/tr/td[6]" # Xpath for RH data
   
-  # 氣溫
+  # Tem
   xpathTtem <- "//table[@id='MyTable']/tbody/tr/td[4]" # Xpath for Temperature data
   
-  # 氣壓
+  # Press
   xpathPres <- "//table[@id='MyTable']/tbody/tr/td[2]" # Xpath for StnPres data
   
-  XpathName <- c("雨量", "濕度", "氣溫", "氣壓")
+  XpathName <- c("Rain", "Hum", "Tem", "Press")
   
   xpathurl <- c(xpathrain, xpathHum, xpathTtem, xpathPres)
   
@@ -79,17 +79,17 @@ getDataformCWB <- function(station, timerange1, timerange2, iterm){
     data <- datadoc %>%
       html_nodes(., xpath = xpathSelect_result)%>%
       html_text
-    data_renew <- str_trim(sub("<U+00A0>",replacement ="",data)) # 去掉怪東西
+    data_renew <- str_trim(sub("<U+00A0>",replacement ="",data)) # Delete something we don't need
     hr24 <-cbind(hr24, data_renew)
     
   }
   names(hr24)[2:lengthDatep] <- as.vector(as.factor(date))
-  hr24_all <- melt(hr24, id=c("Hour") ) # 把他們排成一排
+  hr24_all <- melt(hr24, id=c("Hour") ) # Let them for one column
   
   return(hr24_all)
 }
 
 
-liststation <- c("竹東")
-ANBU_press <- getDataformCWB(liststation, "2017-01-17", "2017-01-17", "氣壓")
+liststation <- c("BANQIAO")
+ANBU_press <- getDataformCWB(liststation, "2017-01-17", "2017-01-17", "Press")
 

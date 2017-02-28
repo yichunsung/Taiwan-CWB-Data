@@ -6,7 +6,7 @@ getDataformCWB <- function(station, timerange1, timerange2, iterm){
   # ---------- 輸入目標測站 ---------- #
   # Load Station List
 
-  stationList <- read.csv("data/StationList.csv")
+  stationList <- read.csv("data/new_Station_List.csv")
 
   inputStationName <- c(station) # "鞍部"
 
@@ -47,7 +47,7 @@ getDataformCWB <- function(station, timerange1, timerange2, iterm){
   # 氣壓
   xpathPres <- "//table[@id='MyTable']/tbody/tr/td[2]" # Xpath for StnPres data
 
-  XpathName <- c("雨量", "濕度", "氣溫", "氣壓")
+  XpathName <- c("Rain", "Hum", "Tem", "Press") 
 
   xpathurl <- c(xpathrain, xpathHum, xpathTtem, xpathPres)
 
