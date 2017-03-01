@@ -75,9 +75,13 @@ getDataformCWB <- function(station, timerange1, timerange2, iterm){
 
   }
   names(hr24)[2:lengthDatep] <- as.vector(as.factor(date))
-  hr24_all <- melt(hr24, id=c("Hour") ) # 把他們排成一排
-
-  return(hr24_all)
+  hr24_all <- melt(hr24, id=c("Hour") ) # Let them for one column
+  names(hr24_all) <- c("hour", "date", "data")
+  POStime <- as.POSIXct(paste(hr24_all$date, hr24_all$hour, sep = " "), "%Y-%m-%d %H", tz="GMT")
+  resultTable <- data.frame(time=POStime, data= hr24_all$data)
+  names(resultTable)[2] <-c(iterm)
+  
+  return(resultTable)
 }
 
 

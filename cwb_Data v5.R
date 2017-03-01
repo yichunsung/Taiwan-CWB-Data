@@ -93,3 +93,13 @@ getDataformCWB <- function(station, timerange1, timerange2, iterm){
 liststation <- c("BANQIAO")
 ANBU_press <- getDataformCWB(liststation, "2017-01-17", "2017-01-17", "Press")
 
+# test area=========================================================
+
+names(ANBU_press) <- c("hour", "date", "data")
+
+time <- paste(ANBU_press$date, ANBU_press$hour, sep = " ")
+POStime <- as.POSIXct(time, "%Y-%m-%d %H", tz="GMT")
+
+resultTable <- data.frame(time=POStime, data= ANBU_press$data)
+
+#===================================================================

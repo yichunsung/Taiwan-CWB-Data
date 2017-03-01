@@ -4,6 +4,8 @@ library(rvest)
 library(stringr)
 library(reshape2)
 library(knitr)
+library(ggplot2)
+library(plotly)
 Sys.setlocale(category = "LC_ALL", locale = "cht")
 getDataformCWB <- function(station, timerange1, timerange2, iterm){
   
@@ -52,7 +54,7 @@ getDataformCWB <- function(station, timerange1, timerange2, iterm){
   # Press
   xpathPres <- "//table[@id='MyTable']/tbody/tr/td[2]" # Xpath for StnPres data
   
-  XpathName <- c("precipitation", "RH", "Temperature", "pressure")
+  XpathName <- c("precipitation", "Relative humidity", "Temperature", "pressure")
   
   xpathurl <- c(xpathrain, xpathHum, xpathTtem, xpathPres)
   
@@ -81,8 +83,12 @@ getDataformCWB <- function(station, timerange1, timerange2, iterm){
   }
   names(hr24)[2:lengthDatep] <- as.vector(as.factor(date))
   hr24_all <- melt(hr24, id=c("Hour") ) # Let them for one column
+  names(hr24_all) <- c("hour", "date", "data")
+  POStime <- as.POSIXct(paste(hr24_all$date, hr24_all$hour, sep = " "), "%Y-%m-%d %H", tz="GMT")
+  resultTable <- data.frame(time=POStime, data= hr24_all$data)
+  names(resultTable)[2] <-c(iterm)
   
-  return(hr24_all)
+  return(resultTable)
 }
 
 
@@ -94,19 +100,31 @@ Station_name <- as.list(as.vector(stationList$engName))
 
 shinyServer(function(input, output) {
 
-  output$dateoutput <- renderText({
-    sprintf("測站%s, 項目%s", input$selectStation, input$selectitem)
+  output$tabletitleoutput1 <- renderText({
+    sprintf("%s station, %s", input$selectStation, input$selectitem)
  })
+  output$tabletitleoutput2 <- renderText({
+    sprintf("%s station, %s", input$selectStation, input$selectitem)
+  })
 
   #ANBU_press <- getDataformCWB("BANQIAO", a, b, "Press")
-	output$tabledata <- renderDataTable(
+	output$tabledata <- renderDataTable({
 
-	   getDataformCWB(input$selectStation, input$dates[1], input$dates[2], input$selectitem))
- # output$MVdatatable <- renderDataTable(MVdata)
-  # output$raindata <- renderDataTable(C0D560_Rain_for_day_hr24_all)
- # output$humdata <- renderDataTable(C0D560_HUM_for_day_hr24_all)
-  # output$temdata <- renderDataTable(C0D560_tem_for_day_hr24_all)
-  # output$pressdata <- renderDataTable(C0D560_press_for_day_hr24_all)
+	 dataGetfromCWB <- getDataformCWB(input$selectStation, input$dates[1], input$dates[2], input$selectitem)
+	 dataGetfromCWB
+	})
+  output$plotlyData <- renderPlotly({
+    dataGetfromCWB <- getDataformCWB(input$selectStation, input$dates[1], input$dates[2], input$selectitem)
+    dataGetfromCWB[2]
+   dataplotly <- plot_ly(
+     data = dataGetfromCWB, 
+     x = dataGetfromCWB$time, 
+     y = as.vector(dataGetfromCWB[[2]]), 
+     type = "scatter", 
+     mode = "liners+markers"
+   )
+   dataplotly
+  })
   output$downloadData <- downloadHandler(
     filename = 'data.csv',
     content = function(file) {

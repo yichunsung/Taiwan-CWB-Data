@@ -1,15 +1,17 @@
+# Library Packages
 library(magrittr)
 library(httr)
 library(rvest)
 library(stringr)
 library(reshape2)
 library(knitr)
-library(ggplot2)
-library(plotly)
-Sys.setlocale(category = "LC_ALL", locale = "cht")
+
+setwd('c:/Taiwan-CWB-Data')
+Sys.setlocale(category = "LC_ALL", locale = "")
+
 getDataformCWB <- function(station, timerange1, timerange2, iterm){
-  
-  
+
+
   # ---------- input Targat Station ---------- #
   # Load Station List
   
@@ -87,54 +89,22 @@ getDataformCWB <- function(station, timerange1, timerange2, iterm){
   POStime <- as.POSIXct(paste(hr24_all$date, hr24_all$hour, sep = " "), "%Y-%m-%d %H", tz="GMT")
   resultTable <- data.frame(time=POStime, data= hr24_all$data)
   names(resultTable)[2] <-c(iterm)
-  
   return(resultTable)
 }
 
 
-
-stationList <- read.csv("data/new_Station_List.csv")
-Station_name <- as.list(as.vector(stationList$engName))
-
-
-shinyUI(fluidPage(
-	titlePanel("CWB Data"),
-
-      	sidebarLayout(
-      		sidebarPanel(
-      			dateRangeInput("dates", label = h3("請選擇日期區間"), start = "2017-02-01", end = "2017-02-01", format = "yyyy-mm-dd"),
-      			selectInput("selectStation", label = h3("請選擇目標測站"), 
-      			            choices = Station_name, selected = "BANQIAO"),
-      			selectInput("selectitem", label = h3("請選擇資料項目"), 
-      			            choices = list("precipitation", "Relative humidity", "Temperature", "pressure"), selected = "Temperature"),
-      			submitButton("Submit"),
-      			br()
-      			#downloadButton('downloadData', 'Download')
-      		),
-      	#	sidebarPanel(
-          #  downloadButton('downloadData', 'Download')
-      #		),
+liststation <- c("BANQIAO")
+ANBU_press <- getDataformCWB(liststation, "2017-01-17", "2017-01-17", "Press")
 
 
-      		mainPanel(
-      		  tabsetPanel(
 
-      		    tabPanel("result",
-      		             h3(textOutput("tabletitleoutput1")),
-      		             br(),
-      		             p(downloadButton('downloadData', 'Download')), 
-      		             hr(),
-      		             dataTableOutput("tabledata")
-      		    ),
-      		    
-      		    tabPanel("Plot", 
-      		             h3(textOutput("tabletitleoutput2")),
-      		             hr(),
-      		             plotlyOutput("plotlyData"))
+# test area=========================================================
 
-      		  )
-      		)
-        )
+names(ANBU_press) <- c("hour", "date", "data")
 
+time <- paste(ANBU_press$date, ANBU_press$hour, sep = " ")
+POStime <- as.POSIXct(time, "%Y-%m-%d %H", tz="GMT")
 
-))
+resultTable <- data.frame(time=POStime, data= ANBU_press$data)
+
+#===================================================================
