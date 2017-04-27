@@ -1,0 +1,137 @@
+---
+title: "How to mange CWB weather data"
+author: "YiChun Sung"
+date: "2017年4月25日"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+### Packages
+
+通常使用R 語言時，各資料分析者都會使用自己順手的套件協助處理當前的工作，因此套件多樣化也是R語言的特長。
+各資料分析者或資料科學家也常將自己處理的工作流程製作成好用的套件提供其他使用者使用，達到教學相長的目的。
+```{r eval=FALSE}
+# Library Packages
+library(magrittr)
+library(httr)
+library(rvest)
+library(stringr)
+library(reshape2)
+library(knitr)
+
+```
+
+
+```{r echo = FALSE}
+# 將資料夾裡所有的.csv檔案讀取進來
+fileList <- list.files(path = "C://testDOC/", pattern="*.csv")
+for (i in 1:length(fileList)){
+  assign(fileList[i], 
+         read.csv(paste("C://testDOC/", fileList[i], sep=''))
+  )}
+
+```
+
+### Reading .csv
+
+此外，R語言的優點在於能夠處理相當多種不同的資料格式，從.txt檔、.csv檔、.xlsx檔、.json檔甚至可以處理.shp或是圖片檔等等。
+
+而這裡我從外部將氣象局各測站的基本資料讀取進來，氣象局各測站資料也是利用爬蟲程式抓取的。
+
+```{r stationList}
+
+stationList <- read.csv("data/new_Station_List.csv")
+inputStationName <- c("Beiliao") # "Location" # station
+
+```
+
+
+### input Date 
+
+在這一部分，我們需要生產一個時間序列，根據排序，我的程式會一個一個抓取該日期的資料下來。
+
+```{r lengthDate}
+
+fromdate <- as.Date("2017-01-06") # "2017-01-06" # timerange1
+todate <- as.Date("2017-01-06") # "2017-01-06"  # timerange2
+date <- seq.Date(fromdate, todate, "day")
+lengthDate <- as.numeric(length(date))
+lengthDatep <- as.numeric(lengthDate+1)
+  
+```
+
+### url
+
+接著，我們生產一個data.frame去裝每一個日期所對應的url。
+
+```{r subdataframe}
+url_1 <- "http://e-service.cwb.gov.tw/HistoryDataQuery/DayDataController.do?command=viewMain&station="
+url_2 <- "&stname=%25E7%25AB%25B9%25E6%259D%25B1&datepicker="
+url_1_1 <- paste(url_1, stationList$id, sep = "")
+url_all <- paste(url_1_1, url_2, sep = "")
+stationListnew <- cbind(stationList, url_all)
+  
+substation <- data.frame(subset(stationListnew, stationListnew$engName == inputStationName))
+subdataframe <-data.frame(date=date, urldate = paste(substation$url_all, date ,sep=""))
+
+```
+
+
+### Xpath data
+
+找到每一個欄位的xpath。
+
+```{r xpathSelect_result}
+inputxpathName <- c("press") # "ex: press" # iterm
+  
+  # Rain
+xpathrain <- "//table[@id='MyTable']/tbody/tr/td[11]" # Xpath for rain data
+  
+  # Hum
+xpathHum <- "//table[@id='MyTable']/tbody/tr/td[6]" # Xpath for RH data
+  
+  # Tem
+xpathTtem <- "//table[@id='MyTable']/tbody/tr/td[4]" # Xpath for Temperature data
+  
+  # Press
+xpathPres <- "//table[@id='MyTable']/tbody/tr/td[2]" # Xpath for StnPres data
+  
+XpathName <- c("Rain", "Hum", "Tem", "Press")
+  
+xpathurl <- c(xpathrain, xpathHum, xpathTtem, xpathPres)
+  
+xpathList <- data.frame(XpathName, xpathurl)
+  
+xpathselect_dataframe <- subset(xpathList, xpathList$XpathName == inputxpathName)
+  
+xpathSelect_result <- as.vector(xpathselect_dataframe$xpathurl)
+xpathList
+
+```
+
+### Get the data!
+
+```{r eval=FALSE}
+hr24 <- data.frame(Hour=1:24) # set one day time
+  
+  for (i in 1:lengthDate){
+    urlhtml <- as.vector(subdataframe$urldate[i])# as.vector(date_dataFrame$urldate[1])
+    # doc <- read_html(urls)
+    datadoc <-read_html(urlhtml)# read_html(as.vector(date_dataFrame$urldate[1]))
+    data <- datadoc %>%
+      html_nodes(., xpath = xpathSelect_result)%>%
+      html_text
+    data_renew <- str_trim(sub("<U+00A0>",replacement ="",data)) # Delete something we don't need
+    hr24 <-cbind(hr24, data_renew)
+    
+  }
+  names(hr24)[2:lengthDatep] <- as.vector(as.factor(date))
+  hr24_all <- melt(hr24, id=c("Hour") ) # Let them for one column
+  names(hr24_all) <- c("hour", "date", "data")
+  POStime <- as.POSIXct(paste(hr24_all$date, hr24_all$hour, sep = " "), "%Y-%m-%d %H", tz="GMT")
+  resultTable <- data.frame(time=POStime, data= hr24_all$data)
+  names(resultTable)[2] <-c(iterm)
+  
+
+```

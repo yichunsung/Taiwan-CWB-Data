@@ -93,7 +93,7 @@ getDataformCWB <- function(station, timerange1, timerange2, iterm){
 
 
 
-stationList <- read.csv("data/new_Station_List.csv")
+stationList <- read.csv("data/new_Station_a_List.csv")
 Station_name <- as.list(as.vector(stationList$engName))
 
 
@@ -104,9 +104,9 @@ shinyUI(fluidPage(
       		sidebarPanel(
       			dateRangeInput("dates", label = h3("請選擇日期區間"), start = "2017-02-01", end = "2017-02-01", format = "yyyy-mm-dd"),
       			selectInput("selectStation", label = h3("請選擇目標測站"), 
-      			            choices = Station_name, selected = "BANQIAO"),
-      			selectInput("selectitem", label = h3("請選擇資料項目"), 
-      			            choices = list("precipitation", "Relative humidity", "Temperature", "pressure"), selected = "Temperature"),
+      			            choices = Station_name, selected = "Zhudong"),
+      			#selectInput("selectitem", label = h3("請選擇資料項目"), 
+      			#            choices = list("precipitation", "Relative humidity", "Temperature", "pressure"), selected = "Temperature"),
       			submitButton("Submit"),
       			br()
       			#downloadButton('downloadData', 'Download')
@@ -125,12 +125,12 @@ shinyUI(fluidPage(
       		             p(downloadButton('downloadData', 'Download')), 
       		             hr(),
       		             dataTableOutput("tabledata")
-      		    ),
+      		    )
       		    
-      		    tabPanel("Plot", 
-      		             h3(textOutput("tabletitleoutput2")),
-      		             hr(),
-      		             plotlyOutput("plotlyData"))
+      		  #  tabPanel("Plot", 
+      		  #           h3(textOutput("tabletitleoutput2")),
+      		  #           hr(),
+      		  #           plotlyOutput("plotlyData"))
 
       		  )
       		)

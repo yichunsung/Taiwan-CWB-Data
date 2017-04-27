@@ -70,7 +70,7 @@ getDataformCWB <- function(station, timerange1, timerange2, iterm){
   
   
   
-  hr24 <- data.frame(Hour=1:24)
+  hr24 <- data.frame(Hour=1:24) # set one day time
   
   for (i in 1:lengthDate){
     urlhtml <- as.vector(subdataframe$urldate[i])# as.vector(date_dataFrame$urldate[1])
@@ -93,10 +93,46 @@ getDataformCWB <- function(station, timerange1, timerange2, iterm){
 }
 
 
-liststation <- c("BANQIAO")
-ANBU_press <- getDataformCWB(liststation, "2017-01-17", "2017-01-17", "Press")
+liststation <- c("Zhudong")
+Zhudong_Press <- getDataformCWB("Zhudong", "2017-03-14", "2017-03-19", "Press")
+Zhudong_Hum <- getDataformCWB("Zhudong", "2017-03-14", "2017-03-19", "Hum")
+Zhudong_Tem <- getDataformCWB("Zhudong", "2017-03-14", "2017-03-19", "Tem")
+Zhudong_Rain <- getDataformCWB("Zhudong", "2017-03-14", "2017-03-19", "Rain")
 
+Hutoupi_Press <- getDataformCWB("Hutoupi", "2017-03-14", "2017-03-19", "Press")
+Hutoupi_Hum <- getDataformCWB("Hutoupi", "2017-03-14", "2017-03-19", "Hum")
+Hutoupi_Tem <- getDataformCWB("Hutoupi", "2017-03-14", "2017-03-19", "Tem")
+Hutoupi_Rain <- getDataformCWB("Hutoupi", "2017-03-14", "2017-03-19", "Rain")
 
+Chiaoshi_Press <- getDataformCWB("Chiaoshi", "2017-03-14", "2017-03-19", "Press")
+Chiaoshi_Hum <- getDataformCWB("Chiaoshi", "2017-03-14", "2017-03-19", "Hum")
+Chiaoshi_Tem <- getDataformCWB("Chiaoshi", "2017-03-14", "2017-03-19", "Tem")
+Chiaoshi_Rain <- getDataformCWB("Chiaoshi", "2017-03-14", "2017-03-19", "Rain")
+
+Beiliao_Press <- getDataformCWB("Beiliao", "2017-03-20", "2017-03-21", "Press")
+Beiliao_Hum <- getDataformCWB("Beiliao", "2017-03-20", "2017-03-21", "Hum")
+Beiliao_Tem <- getDataformCWB("Beiliao", "2017-03-20", "2017-03-21", "Tem")
+Beiliao_Rain <- getDataformCWB("Beiliao", "2017-03-20", "2017-03-21", "Rain")
+
+write.csv(Zhudong_Press, "c://Taiwan-CWB-Data/writeCSV/C0D560_竹東_Zhudong_Press.csv")
+write.csv(Zhudong_Hum, "c://Taiwan-CWB-Data/writeCSV/C0D560_竹東_Zhudong_Hum.csv")
+write.csv(Zhudong_Tem, "c://Taiwan-CWB-Data/writeCSV/C0D560_竹東_Zhudong_Tem.csv")
+write.csv(Zhudong_Rain, "c://Taiwan-CWB-Data/writeCSV/C0D560_竹東_Zhudong_Rain.csv")
+
+write.csv(Hutoupi_Press, "c://Taiwan-CWB-Data/writeCSV/Hutoupi_Press.csv")
+write.csv(Hutoupi_Hum, "c://Taiwan-CWB-Data/writeCSV/Hutoupi_Hum.csv")
+write.csv(Hutoupi_Tem, "c://Taiwan-CWB-Data/writeCSV/Hutoupi_Tem.csv")
+write.csv(Hutoupi_Rain, "c://Taiwan-CWB-Data/writeCSV/Hutoupi_Rain.csv")
+
+write.csv(Beiliao_Press, "c://Taiwan-CWB-Data/writeCSV/Beiliao_Press.csv")
+write.csv(Beiliao_Hum, "c://Taiwan-CWB-Data/writeCSV/Beiliao_Hum.csv")
+write.csv(Beiliao_Tem, "c://Taiwan-CWB-Data/writeCSV/Beiliao_Tem.csv")
+write.csv(Beiliao_Rain, "c://Taiwan-CWB-Data/writeCSV/Beiliao_Rain.csv")
+
+write.csv(Chiaoshi_Press, "c://Taiwan-CWB-Data/writeCSV/Chiaoshi_Press.csv")
+write.csv(Chiaoshi_Hum, "c://Taiwan-CWB-Data/writeCSV/Chiaoshi_Hum.csv")
+write.csv(Chiaoshi_Tem, "c://Taiwan-CWB-Data/writeCSV/Chiaoshi_Tem.csv")
+write.csv(Chiaoshi_Rain, "c://Taiwan-CWB-Data/writeCSV/Chiaoshi_Rain.csv")
 
 # test area=========================================================
 
