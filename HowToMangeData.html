@@ -223,6 +223,7 @@ div.tocify {
 
 <div id="packages" class="section level3">
 <h3>Packages</h3>
+<p>R is the famous statistics language ,so you can use your favorite package which you can chosoe by yourself. Because of diversity of packages, many data scienists usually create their style packages.</p>
 <p>通常使用R 語言時，各資料分析者都會使用自己順手的套件協助處理當前的工作，因此套件多樣化也是R語言的特長。 各資料分析者或資料科學家也常將自己處理的工作流程製作成好用的套件提供其他使用者使用，達到教學相長的目的。</p>
 <pre class="r"><code># Library Packages
 library(magrittr)
@@ -241,6 +242,7 @@ inputStationName &lt;- c(&quot;Beiliao&quot;) # &quot;Location&quot; # station</
 </div>
 <div id="input-date" class="section level3">
 <h3>input Date</h3>
+<p>In this part, we need a time sequence. After we bulid a time sequence, we can get CWB data in the time which we choosed. as.Date is a good function that can let us bulid a time sequence.</p>
 <p>在這一部分，我們需要生產一個時間序列，根據排序，我的程式會一個一個抓取該日期的資料下來。 as.Date函數 可以在兩個你自由選擇的時間區間內生產一個時間序列。</p>
 <pre class="r"><code>fromdate &lt;- as.Date(&quot;2017-01-06&quot;) # &quot;2017-01-06&quot; # timerange1
 todate &lt;- as.Date(&quot;2017-01-06&quot;) # &quot;2017-01-06&quot;  # timerange2
@@ -250,7 +252,7 @@ lengthDatep &lt;- as.numeric(lengthDate+1)</code></pre>
 </div>
 <div id="url" class="section level3">
 <h3>url</h3>
-<p>接著，我們生產一個data.frame去裝每一個日期所對應的url。</p>
+<p>According CWB website, we know the data from CWB is dispaly in one page for single day. Then, we bulid a data frame to mange our url for each day. 接著，我們生產一個data.frame去裝每一個日期所對應的url。</p>
 <pre class="r"><code>url_1 &lt;- &quot;http://e-service.cwb.gov.tw/HistoryDataQuery/DayDataController.do?command=viewMain&amp;station=&quot;
 url_2 &lt;- &quot;&amp;stname=%25E7%25AB%25B9%25E6%259D%25B1&amp;datepicker=&quot;
 url_1_1 &lt;- paste(url_1, stationList$id, sep = &quot;&quot;)
@@ -317,7 +319,7 @@ xpathList</code></pre>
 </div>
 <div id="buliding-a-function" class="section level3">
 <h3>Buliding a function</h3>
-<p>建立函式以便日後方便使用</p>
+<p>finally, we can bulid a function that we can use this function to quickly mange CWB data. In the future, we won’t need to tyoe a lot of codes and easy to bulid data frame.</p>
 <pre class="r"><code>getDataformCWB &lt;- function(station, timerange1, timerange2, iterm){
   # Library packages
   library(magrittr)

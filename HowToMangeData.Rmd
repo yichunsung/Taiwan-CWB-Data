@@ -9,6 +9,8 @@ output:
 ---
 ### Packages
 
+R is the famous statistics language ,so you can use your favorite package which you can chosoe by yourself. Because of diversity of packages, many data scienists usually create their style packages. 
+
 通常使用R 語言時，各資料分析者都會使用自己順手的套件協助處理當前的工作，因此套件多樣化也是R語言的特長。
 各資料分析者或資料科學家也常將自己處理的工作流程製作成好用的套件提供其他使用者使用，達到教學相長的目的。
 ```{r eval=FALSE}
@@ -49,8 +51,11 @@ inputStationName <- c("Beiliao") # "Location" # station
 
 ### input Date 
 
-在這一部分，我們需要生產一個時間序列，根據排序，我的程式會一個一個抓取該日期的資料下來。
+In this part, we need a time sequence. After we bulid a time sequence, we can get CWB data in the time which we choosed.
+as.Date is a good function that can let us bulid a time sequence.
 
+在這一部分，我們需要生產一個時間序列，根據排序，我的程式會一個一個抓取該日期的資料下來。
+as.Date函數 可以在兩個你自由選擇的時間區間內生產一個時間序列。
 ```{r lengthDate}
 
 fromdate <- as.Date("2017-01-06") # "2017-01-06" # timerange1
@@ -63,6 +68,8 @@ lengthDatep <- as.numeric(lengthDate+1)
 
 ### url
 
+According CWB website, we know the data from CWB is dispaly in one page for single day.
+Then, we bulid a data frame to mange our url for each day. 
 接著，我們生產一個data.frame去裝每一個日期所對應的url。
 
 ```{r subdataframe}
@@ -134,4 +141,97 @@ hr24 <- data.frame(Hour=1:24) # set one day time
   names(resultTable)[2] <-c(iterm)
   
 
+```
+
+### Buliding a function
+
+finally, we can bulid a function that we can use this function to quickly mange CWB data.
+In the future, we won't need to tyoe a lot of codes and easy to bulid data frame.
+
+```{r, message=FALSE, warning=FALSE}
+
+
+getDataformCWB <- function(station, timerange1, timerange2, iterm){
+  # Library packages
+  library(magrittr)
+  library(httr)
+  library(rvest)
+  library(stringr)
+  library(reshape2)
+  library(knitr)
+  # ---------- input Targat Station ---------- #
+  # Load Station List
+  
+  stationList <- read.csv("data/new_Station_List.csv")
+  
+  inputStationName <- c(station) # "Location"
+  
+  
+  # ---------- input Date ---------- #
+  fromdate <- as.Date(timerange1) # "2017-01-06"
+  todate <- as.Date(timerange2) # "2017-01-06"
+  date <- seq.Date(fromdate, todate, "day")
+  lengthDate <- as.numeric(length(date))
+  lengthDatep <- as.numeric(lengthDate+1)
+  
+  
+  # ---------- URL ---------- #
+  url_1 <- "http://e-service.cwb.gov.tw/HistoryDataQuery/DayDataController.do?command=viewMain&station="
+  url_2 <- "&stname=%25E7%25AB%25B9%25E6%259D%25B1&datepicker="
+  url_1_1 <- paste(url_1, stationList$id, sep = "")
+  url_all <- paste(url_1_1, url_2, sep = "")
+  
+  stationListnew <- cbind(stationList, url_all)
+  
+  substation <- data.frame(subset(stationListnew, stationListnew$engName == inputStationName))
+  subdataframe <-data.frame(date=date, urldate = paste(substation$url_all, date ,sep=""))
+
+  # ---------- Xpath ---------- #
+  inputxpathName <- c(iterm) # "ex: press"
+  # Rain
+  xpathrain <- "//table[@id='MyTable']/tbody/tr/td[11]" # Xpath for rain data
+  # Hum
+  xpathHum <- "//table[@id='MyTable']/tbody/tr/td[6]" # Xpath for RH data
+  # Tem
+  xpathTtem <- "//table[@id='MyTable']/tbody/tr/td[4]" # Xpath for Temperature data
+  # Press
+  xpathPres <- "//table[@id='MyTable']/tbody/tr/td[2]" # Xpath for StnPres data
+  
+  XpathName <- c("Rain", "Hum", "Tem", "Press")
+  
+  xpathurl <- c(xpathrain, xpathHum, xpathTtem, xpathPres)
+  
+  xpathList <- data.frame(XpathName, xpathurl)
+  
+  xpathselect_dataframe <- subset(xpathList, xpathList$XpathName == inputxpathName)
+  xpathSelect_result <- as.vector(xpathselect_dataframe$xpathurl)
+  
+  #-----
+  
+  hr24 <- data.frame(Hour=1:24) # set one day time
+  
+  for (i in 1:lengthDate){
+    urlhtml <- as.vector(subdataframe$urldate[i])# as.vector(date_dataFrame$urldate[1])
+    # doc <- read_html(urls)
+    datadoc <-read_html(urlhtml)# read_html(as.vector(date_dataFrame$urldate[1]))
+    data <- datadoc %>%
+      html_nodes(., xpath = xpathSelect_result)%>%
+      html_text
+    data_renew <- str_trim(sub("<U+00A0>",replacement ="",data)) # Delete something we don't need
+    hr24 <-cbind(hr24, data_renew)
+    
+  }
+  names(hr24)[2:lengthDatep] <- as.vector(as.factor(date))
+  hr24_all <- melt(hr24, id=c("Hour") ) # Let them for one column
+  names(hr24_all) <- c("hour", "date", "data")
+  POStime <- as.POSIXct(paste(hr24_all$date, hr24_all$hour, sep = " "), "%Y-%m-%d %H", tz="GMT")
+  resultTable <- data.frame(time=POStime, data= hr24_all$data)
+  names(resultTable)[2] <-c(iterm)
+  return(resultTable)
+}
+
+Zhudong_Press <- getDataformCWB("Zhudong", "2017-03-14", "2017-03-19", "Press")
+library(knitr)
+kable(Zhudong_Press[1:20, ], caption = "Zhudong Press data")
+#Zhudong_Press
 ```
