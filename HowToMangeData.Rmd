@@ -44,6 +44,7 @@ for (i in 1:length(fileList)){
 ```{r stationList}
 
 stationList <- read.csv("data/new_Station_List.csv")
+
 inputStationName <- c("Beiliao") # "Location" # station
 
 ```
@@ -230,7 +231,7 @@ getDataformCWB <- function(station, timerange1, timerange2, iterm){
   return(resultTable)
 }
 
-Zhudong_Press <- getDataformCWB("Zhudong", "2017-03-14", "2017-03-19", "Press")
+Zhudong_Press <- getDataformCWB("Zhudong", "2016-03-14", "2016-03-19", "Press")
 library(knitr)
 kable(Zhudong_Press[1:20, ], caption = "Zhudong Press data")
 #Zhudong_Press
