@@ -202,14 +202,25 @@ StationAllTable_engName <- function(station, StartDate, EndDate){
   return(Starion_All)
 }
 
-Zhudong <- StationAllTable("竹東", "2017-07-14", "2017-07-16")
-Hutoupi <- StationAllTable_engName("Hutoupi", "2017-07-14", "2017-07-16")
-JS <- StationAllTable("礁溪", "2017-07-14", "2017-07-16")
-Beiliao <- StationAllTable("北寮", "2017-07-14", "2017-07-16")
-FS <- StationAllTable("鳳山", "2017-07-14", "2017-07-16")
-GS <- StationAllTable("金山", "2017-07-14", "2017-07-16")
-YMS <- StationAllTable_engName("ZHUZIHU", "2017-07-14", "2017-07-16")
+Zhudong <- StationAllTable("竹東", "2017-09-28", "2017-10-04")
+Hutoupi <- StationAllTable_engName("Hutoupi", "2017-09-28", "2017-10-04")
+JS <- StationAllTable("礁溪", "2017-09-28", "2017-10-04")
+Beiliao <- StationAllTable("北寮", "2017-09-28", "2017-10-04")
+FS <- StationAllTable("鳳山", "2017-09-28", "2017-10-04")
+GS <- StationAllTable("金山", "2015-07-30", "2015-08-09")
+YMS <- StationAllTable_engName("ZHUZIHU", "2015-07-30", "2015-08-09")
+#YMS <- StationAllTable_engName("ZHUZIHU", "2017-09-28", "2017-10-04")
 
+#WD <- StationAllTable_engName("WanDan", "2016-11-01", "2016-11-28")
+
+#WD2 <- StationAllTable("萬丹", "2016-05-02", "2016-06-01")
+#WD3 <- StationAllTable("萬丹", "2016-06-02", "2016-06-13")
+#WD4 <- StationAllTable("萬丹", "2016-08-01", "2016-08-21")
+
+#WD5 <- StationAllTable("萬丹", "2016-09-01", "2016-09-30")
+#WD6 <- StationAllTable("萬丹", "2016-10-01", "2016-10-30")
+
+#WD8 <- StationAllTable("萬丹", "2016-11-03", "2016-12-31")
 #YMS <- StationAllTable_engName("ZHUZIHU", "2016-09-01", "2016-09-02")
 #YMS <- StationAllTable_engName("ZHUZIHU", (Sys.Date()-1), (Sys.Date()-1))
 
@@ -221,7 +232,6 @@ write.csv(FS, "c://Taiwan-CWB-Data/writeCSV/鳳山.csv")
 write.csv(GS, "c://Taiwan-CWB-Data/writeCSV/金山.csv")
 write.csv(YMS, "c://Taiwan-CWB-Data/writeCSV/竹子湖.csv")
 
-
 #==============
 # pic download
 
@@ -231,7 +241,7 @@ download_str <- paste(substr(yesterday, 7, 7), substr(yesterday, 9, 10), sep = "
 
 pic_date <- c(download_str)
 url_pic <-paste("http://www.cwb.gov.tw/V7/observe/rainfall/Data/hk", pic_date, "000.jpg", sep = "")
-destfile_pic <- paste("c://pic/", yesterday, ".jpg", sep = "")
+destfile_pic <- paste("c://Taiwan-CWB-Data/writeCSV/pic/", yesterday, ".jpg", sep = "")
 for(i in 1:length(pic_date)){
   download.file(url_pic[i], destfile_pic[i], mode="wb")
 }
