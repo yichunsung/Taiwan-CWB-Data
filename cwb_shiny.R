@@ -4,5 +4,5 @@ setwd("C:/Taiwan-CWB-Data")
 #file.create("TaiwanCWB/ui.R")
 #file.create("TaiwanCWB/server.R")
 
-runApp("TaiwanCWB")
+#runApp("TaiwanCWB")
 

@@ -202,13 +202,13 @@ StationAllTable_engName <- function(station, StartDate, EndDate){
   return(Starion_All)
 }
 
-Zhudong <- StationAllTable("竹東", "2017-05-31", "2017-06-11")
-Hutoupi <- StationAllTable_engName("Hutoupi", "2017-05-31", "2017-06-11")
-JS <- StationAllTable("礁溪", "2017-05-31", "2017-06-11")
-Beiliao <- StationAllTable("北寮", "2017-05-31", "2017-06-11")
-FS <- StationAllTable("鳳山", "2017-05-31", "2017-06-11")
-GS <- StationAllTable("金山", "2017-05-31", "2017-06-11")
-YMS <- StationAllTable_engName("ZHUZIHU", "2016-08-01", "2016-08-31")
+Zhudong <- StationAllTable("竹東", "2017-05-13", "2017-05-14")
+Hutoupi <- StationAllTable_engName("Hutoupi", "2017-05-13", "2017-05-14")
+JS <- StationAllTable("礁溪", "2017-05-13", "2017-05-14")
+Beiliao <- StationAllTable("北寮", "2017-05-13", "2017-05-14")
+FS <- StationAllTable("鳳山", "2017-05-13", "2017-05-14")
+GS <- StationAllTable("金山", "2017-05-13", "2017-05-14")
+YMS <- StationAllTable_engName("ZHUZIHU", "2017-05-13", "2017-05-14")
 
 
 
@@ -221,13 +221,4 @@ write.csv(GS, "c://Taiwan-CWB-Data/writeCSV/金山.csv")
 write.csv(YMS, "c://Taiwan-CWB-Data/writeCSV/竹子湖.csv")
 
 
-# test area=========================================================
 
-names(ANBU_press) <- c("hour", "date", "data")
-
-time <- paste(ANBU_press$date, ANBU_press$hour, sep = " ")
-POStime <- as.POSIXct(time, "%Y-%m-%d %H", tz="GMT")
-
-resultTable <- data.frame(time=POStime, data= ANBU_press$data)
-
-#===================================================================

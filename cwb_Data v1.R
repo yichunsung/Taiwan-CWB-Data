@@ -9,7 +9,7 @@ Sys.setlocale(category = "LC_ALL", locale = "")
 
 # ----------輸入日期範圍---------- #
 
-fromdate <- as.Date("2016-10-01")
+fromdate <- as.Date("2017-01-15")
 todate <- as.Date("2017-01-16")
 date <- seq.Date(fromdate, todate, "day")
 
@@ -51,7 +51,7 @@ C0U600_date_dataFrame <- data.frame(date=date, urldate = paste(C0U600_url, date 
 C0D560_Rain_for_day_hr24 <- data.frame(Hour=1:24)
 
 for (i in 1:108){
-  urlhtml <- as.vector(C0D560_date_dataFrame$urldate[i])# as.vector(date_dataFrame$urldate[1])
+  urlhtml <- as.vector(C0D560_date_dataFrame$urldate[1])# as.vector(date_dataFrame$urldate[1])
   # doc <- read_html(urls)
   datadoc <-read_html(urlhtml)# read_html(as.vector(date_dataFrame$urldate[1]))
   data <- datadoc %>%
