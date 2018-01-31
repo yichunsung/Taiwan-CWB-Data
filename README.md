@@ -32,9 +32,10 @@ git clone "https://github.com/yichunsung/Taiwan-CWB-Data"
 這樣就成功將repository複製到本機端了！
 
 * 不想用git就請直接利用Github頁面上的下載功能
+
 右上角有個綠色的`Clone or download`，請下載後放置。
 
-
+---
 * 使用終端機執行
 
 1. 打開終端機進入Repository路徑之下執行R
@@ -55,7 +56,7 @@ download_cwb_data("竹東", "2017-01-01", "2017-02-01", "~/Documents/zd.csv") # 
 ```
 * 使用R或Rstudio執行
 
-打開R或Rstuio
+打開R或Rstudio
 
 第一步請找到downloadCWBData.R這支程式接著呼叫這支程式然後使用，語法如下：
 ```{r}
@@ -67,6 +68,7 @@ download_cwb_data("竹東", "2017-01-01", "2017-02-01", "~/Documents/zd.csv") # 
 * 再看不懂或是有問題的話....
 
 可以利用github上的issues回報問題給我或者聯絡我。
+---
 
 ## 資料來源
 
