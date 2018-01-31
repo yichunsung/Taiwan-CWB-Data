@@ -4,6 +4,21 @@ Taiwan Central Weather Bureau Data
 * Web system Demo  Beta v1:
 https://yichunsung.shinyapps.io/TaiwanCWB/
 
+# 使用方式
+
+clone我的Repository到本機端並進入
+
+打開終端機進入Repository路徑之下，進入R環境或R console，輸入`source("downloadCWBData.R")`使用`download_cwb_data()`函數。
+
+`download_cwb_data("測站名字", "起始日期", "結束日期", "存檔路徑")`
+
+範例：
+```{r}
+source("downloadCWBData.R")
+download_cwb_data("竹東", "2017-01-01", "2017-02-01", "~/Documents/zd.csv") # 記得一定要把副檔名.csv寫清楚
+
+```
+
 ## 資料來源
 
 所有資料來源都是台灣中央氣象局資料
@@ -14,6 +29,10 @@ http://www.cwb.gov.tw/eng/index.htm
 http://e-service.cwb.gov.tw/HistoryDataQuery/index.jsp
 
 # 更新日誌
+
+## 2018-01-31
+
+### 修正氣象局資料遺失時的錯誤
 
 ## 2017-02-28
 
