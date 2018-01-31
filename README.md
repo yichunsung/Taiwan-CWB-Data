@@ -6,9 +6,43 @@ https://yichunsung.shinyapps.io/TaiwanCWB/
 
 # 使用方式
 
-clone我的Repository到本機端並進入
+* 用git 儲存我的repository
 
-打開終端機進入Repository路徑之下，進入R環境或R console，輸入`source("downloadCWBData.R")`使用`download_cwb_data()`函數。
+Windows使用者請先安裝git，詳細可參閱 ·[30 天精通 Git 版本控管](https://github.com/yichunsung/Learn-Git-in-30-days/blob/master/zh-tw/README.md)，[第 02 天：在 Windows 平台必裝的三套 Git 工具](https://github.com/yichunsung/Learn-Git-in-30-days/blob/master/zh-tw/02.md)。
+
+Git for Windows: http://gitforwindows.org
+
+OSX應該已有內建，沒有的一樣去載。安裝完成後請開啟終端機或是git bush。
+
+1. 移動到你想要儲存這個repository的路徑底下。
+Windows:
+```{git}
+cd c://
+```
+OSX:
+```{git}
+cd ~/Documents
+```
+
+2. clone我的repository
+```{git}
+git clone "https://github.com/yichunsung/Taiwan-CWB-Data"
+```
+這樣就成功將repository複製到本機端了！
+
+* 不想用git就請直接利用Github頁面上的下載功能
+右上角有個綠色的`Clone or download`，請下載後放置。
+
+
+* 使用終端機執行
+
+1. 打開終端機進入Repository路徑之下執行R
+```{cmd}
+$ cd your repository path
+$ R
+```
+
+2. 輸入`source("downloadCWBData.R")`使用`download_cwb_data()`函數。
 
 `download_cwb_data("測站名字", "起始日期", "結束日期", "存檔路徑")`
 
@@ -18,6 +52,20 @@ source("downloadCWBData.R")
 download_cwb_data("竹東", "2017-01-01", "2017-02-01", "~/Documents/zd.csv") # 記得一定要把副檔名.csv寫清楚
 
 ```
+* 使用R或Rstudio執行
+
+打開R或Rstuio
+
+第一步請找到downloadCWBData.R這支程式接著呼叫這支程式然後使用，語法如下：
+```{r}
+setwd("你存這個repository的路徑/")
+source("downloadCWBData.R")
+download_cwb_data("竹東", "2017-01-01", "2017-02-01", "~/Documents/zd.csv") # 記得一定要把副檔名.csv寫清楚
+
+```
+* 再看不懂或是有問題的話....
+
+可以利用github上的issues回報問題給我或者聯絡我。
 
 ## 資料來源
 
