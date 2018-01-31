@@ -16,7 +16,7 @@ getDataformCWB <- function(station, timerange1, timerange2, iterm){
   # Load Station List
   
   #stationList <- read.csv("data/newList.csv")
-  testREAD <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRPbYgyxZkrAj5Xd_Jy2m0lBzSrfOLUOqvX2OC3RzyT6mUu3KB73SJBq9UoNELTn2L_Myd3gQptCeyH/pub?gid=179807401&single=true&output=csv")
+  stationList <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRPbYgyxZkrAj5Xd_Jy2m0lBzSrfOLUOqvX2OC3RzyT6mUu3KB73SJBq9UoNELTn2L_Myd3gQptCeyH/pub?gid=179807401&single=true&output=csv")
   inputStationName <- c(station) # "Location"
   
   
