@@ -15,6 +15,7 @@ Git for Windows: http://gitforwindows.org
 OSX應該已有內建，沒有的一樣去載。安裝完成後請開啟終端機或是git bush。
 
 1. 移動到你想要儲存這個repository的路徑底下。
+
 Windows:
 ```{git}
 cd c://
