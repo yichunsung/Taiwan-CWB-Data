@@ -9,7 +9,7 @@ date <- Sys.Date()-1
 cwbList1to200 <- list()
 for(i in 1:200){
   cwbList1to200[[i]] <- StationAllTable_engName(as.vector(stationList$engName[i]), date, date)
-  print(paste( i/nrow(stationList)*100, "%", sep = ""))
+  print(paste( (i/200)*100, "%", sep = ""))
 }
 names(cwbList1to200) <- stationList$engName[1:200]
 

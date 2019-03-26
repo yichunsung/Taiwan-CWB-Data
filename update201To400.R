@@ -14,7 +14,7 @@ for(i in 1:nrow(stationList)){
   cwbList201to400[[i]] <-rbind(cwbList201to400[[i]],
                        StationAllTable_engName(as.vector(stationList$engName[i]), date, date)
   )
-  
+  print(paste( i/nrow(stationList)*100, "%", sep = ""))
 }
 
 # data save

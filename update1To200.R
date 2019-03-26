@@ -12,7 +12,7 @@ for(i in 1:200){
   cwbList1to200[[i]] <-rbind(cwbList1to200[[i]],
                        StationAllTable_engName(as.vector(stationList$engName[i]), date, date)
   )
-  
+  print(paste( (i/200)*100, "%", sep = ""))
 }
 
 # data save
