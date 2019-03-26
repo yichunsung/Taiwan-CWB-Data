@@ -7,7 +7,7 @@ library(reshape2)
 library(knitr)
 
 #setwd('~/Documents/Github_rep/Taiwan-CWB-Data')
-Sys.setlocale(category = "LC_ALL", locale = "")
+#Sys.setlocale(category = "LC_ALL", locale = "")
 
 getDataformCWB <- function(station, timerange1, timerange2, iterm){
   
@@ -212,4 +212,8 @@ StationAllTable_engName <- function(station, StartDate, EndDate){
 download_cwb_data <- function(stationName, startDate, EndDate, path){
   StationAllTable(stationName, startDate, EndDate) %>% write.csv(., path)
 }
+download_cwb_data_eng <- function(stationName, startDate, EndDate, path){
+  StationAllTable_engName(stationName, startDate, EndDate) %>% write.csv(., path)
+}
+
 
